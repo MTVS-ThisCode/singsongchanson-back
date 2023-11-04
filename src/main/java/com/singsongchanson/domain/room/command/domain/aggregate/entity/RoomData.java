@@ -1,6 +1,7 @@
 package com.singsongchanson.domain.room.command.domain.aggregate.entity;
 
 import com.singsongchanson.domain.room.command.application.dto.UpdateRoomDataRequestDTO;
+import com.singsongchanson.domain.room.command.domain.aggregate.vo.Furniture;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
