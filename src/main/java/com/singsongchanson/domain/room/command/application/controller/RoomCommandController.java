@@ -19,7 +19,7 @@ public class RoomCommandController {
 
     @PostMapping
     public ApiResponse createRoom(@AuthenticationPrincipal UserPrincipal userPrincipal,
-                                  CreateRoomRequestDTO createRoomRequest) {
+                                  @RequestBody CreateRoomRequestDTO createRoomRequest) {
 
         RoomDataResponseDTO roomDataResponse = roomCommandService.saveRoom(createRoomRequest, userPrincipal.getId());
 
@@ -29,7 +29,7 @@ public class RoomCommandController {
     @PutMapping("/{roomId}")
     public ApiResponse updateRoom(@PathVariable String roomId,
                                   @AuthenticationPrincipal UserPrincipal userPrincipal,
-                                  UpdateRoomDataRequestDTO updateRoomDataRequestDTO) {
+                                  @RequestBody UpdateRoomDataRequestDTO updateRoomDataRequestDTO) {
 
         RoomDataResponseDTO roomDataResponse = roomCommandService.updateRoomData(roomId, updateRoomDataRequestDTO, userPrincipal.getId());
 
