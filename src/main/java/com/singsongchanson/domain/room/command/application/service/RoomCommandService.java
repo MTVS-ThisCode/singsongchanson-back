@@ -20,6 +20,31 @@ public class RoomCommandService {
     private final RoomRepository roomRepository;
     private final RoomDataRepository roomDataRepository;
 
+    public RoomDataResponseDTO createRoom(Long userNo) {
+
+        Optional<Room> findRoom = roomRepository.findByRoomOwnerVO(new RoomOwnerVO(userNo));
+
+        if(findRoom.isPresent()) {
+            String roomId = findRoom.get().getRoomId();
+            RoomData roomData = roomDataRepository.findById(roomId).get();
+            return RoomDataResponseDTO.from(roomData);
+        }
+
+        RoomData roomData = RoomData.builder()
+                .build();
+
+        RoomData savedRoomData = roomDataRepository.save(roomData);
+
+        Room room = Room.builder()
+                .roomId(savedRoomData.getId())
+                .roomOwnerVO(new RoomOwnerVO(userNo))
+                .build();
+
+        roomRepository.save(room);
+
+        return RoomDataResponseDTO.from(savedRoomData);
+    }
+
     public RoomDataResponseDTO saveRoom(CreateRoomRequestDTO createRoomRequest, Long requestUserNo) {
 
         Room room = Room.builder()
@@ -31,9 +56,7 @@ public class RoomCommandService {
 
         RoomData roomData = RoomData.builder()
                 .id(createRoomRequest.getRoomId())
-                .avatar(createRoomRequest.getAvatar())
                 .furniture(createRoomRequest.getFurniture())
-                .userNo(createRoomRequest.getUserNo())
                 .build();
 
         roomDataRepository.save(roomData);
@@ -53,7 +76,7 @@ public class RoomCommandService {
 
             if (findedRoom.getRoomOwnerVO().getUserNo() == requestUserNo) {
 
-                findedRoomData.update(updateRoomDataRequest);     /** 각각 업데이트 할 수 있도록 수정 */
+                findedRoomData.update(updateRoomDataRequest);
                 roomDataRepository.save(findedRoomData);
 
                 return RoomDataResponseDTO.from(findedRoomData);
