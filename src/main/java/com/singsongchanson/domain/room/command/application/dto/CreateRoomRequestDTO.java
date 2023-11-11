@@ -13,7 +13,5 @@ import java.util.List;
 public class CreateRoomRequestDTO {
 
     private String roomId;
-    private String avatar;
     private List<Furniture> furniture;
-    private String userNo;
 }
