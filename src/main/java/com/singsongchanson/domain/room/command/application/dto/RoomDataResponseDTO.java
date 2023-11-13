@@ -14,16 +14,13 @@ import java.util.List;
 public class RoomDataResponseDTO {
 
     private String roomId;
-    private String avatar;
     private List<Furniture> furniture;
-    private String userNo;
 
     public static RoomDataResponseDTO from(RoomData roomData) {
 
         return new RoomDataResponseDTO(
                 roomData.getId(),
-                roomData.getAvatar(),
-                roomData.getFurniture(),
-                roomData.getUserNo());
+                roomData.getFurniture()
+        );
     }
 }
