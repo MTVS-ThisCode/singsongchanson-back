@@ -1,6 +1,6 @@
 package com.singsongchanson.domain.asset.command.application.dto;
 
-import com.singsongchanson.domain.asset.domain.entity.Asset;
+import com.singsongchanson.domain.asset.command.domain.entity.Asset;
 import lombok.*;
 
 @Getter

@@ -1,4 +1,4 @@
-package com.singsongchanson.domain.asset.domain.entity;
+package com.singsongchanson.domain.asset.command.domain.entity;
 
 import lombok.*;
 import javax.persistence.*;
