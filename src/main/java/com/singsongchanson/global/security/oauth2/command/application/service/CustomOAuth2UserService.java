@@ -1,4 +1,4 @@
-package com.singsongchanson.global.security.oauth2.service;
+package com.singsongchanson.global.security.oauth2.command.application.service;
 
 import com.singsongchanson.domain.user.command.application.dto.CreateUserRequestDTO;
 import com.singsongchanson.domain.user.command.application.dto.FindUserResponseDTO;
@@ -8,6 +8,7 @@ import com.singsongchanson.domain.user.command.domain.aggregate.entity.User;
 import com.singsongchanson.domain.user.command.domain.aggregate.entity.enumtype.SocialType;
 import com.singsongchanson.domain.user.query.application.service.UserQueryService;
 import com.singsongchanson.global.security.UserPrincipal;
+import com.singsongchanson.global.security.oauth2.command.domain.service.RequestRoomDomainService;
 import com.singsongchanson.global.security.oauth2.userInfo.KakaoOAuth2UserInfo;
 import com.singsongchanson.global.security.oauth2.userInfo.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService  {
 
     private final UserQueryService userQueryService;
     private final UserCommandService userCommandService;
+    private final RequestRoomDomainService requestRoomDomainService;
 
     private SocialType getSocialType(String registrationId) {
         if(registrationId.equals("naver")) {
@@ -59,6 +61,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService  {
                     attributes.getGender(), attributes.getAgeRange(), attributes.getSocialId(), socialType);
             User newUser = userCommandService.createUser(createUserDTO);
             oauthMember = UserPrincipal.create(newUser, attributes.getAttributes());
+            requestRoomDomainService.createRoomService(oauthMember.getId());
         }
         else {
             UpdateUserRequestDTO updateUserDTO = new UpdateUserRequestDTO(attributes.getProfileImg(), attributes.getNickname());
