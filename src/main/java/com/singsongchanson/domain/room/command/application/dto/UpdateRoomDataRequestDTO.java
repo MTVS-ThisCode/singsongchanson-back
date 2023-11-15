@@ -12,6 +12,5 @@ import java.util.List;
 @ToString
 public class UpdateRoomDataRequestDTO {
 
-    private String avatar;
     private List<Furniture> furniture;
 }

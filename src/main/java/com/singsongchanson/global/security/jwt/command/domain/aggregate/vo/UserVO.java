@@ -1,4 +1,4 @@
-package com.singsongchanson.global.security.jwt.domain.aggregate.vo;
+package com.singsongchanson.global.security.jwt.command.domain.aggregate.vo;
 
 import lombok.Getter;
 

@@ -15,11 +15,13 @@ public class Furniture {
     private Axis position;
     private Axis rotation;
     private String url;
+    private double scale;
 
-    public Furniture(String name, Axis position, Axis rotation, String url) {
+    public Furniture(String name, Axis position, Axis rotation, String url, double scale) {
         this.name = name;
         this.position = position;
         this.rotation = rotation;
         this.url = url;
+        this.scale = scale;
     }
 }

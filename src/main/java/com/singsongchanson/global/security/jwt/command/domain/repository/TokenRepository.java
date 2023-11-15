@@ -1,7 +1,7 @@
-package com.singsongchanson.global.security.jwt.domain.repository;
+package com.singsongchanson.global.security.jwt.command.domain.repository;
 
-import com.singsongchanson.global.security.jwt.domain.aggregate.entity.Token;
-import com.singsongchanson.global.security.jwt.domain.aggregate.vo.UserVO;
+import com.singsongchanson.global.security.jwt.command.domain.aggregate.entity.Token;
+import com.singsongchanson.global.security.jwt.command.domain.aggregate.vo.UserVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

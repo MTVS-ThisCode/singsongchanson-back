@@ -1,4 +1,4 @@
-package com.singsongchanson.global.security.oauth2.repository;
+package com.singsongchanson.global.security.oauth2.command.domain.repository;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import com.singsongchanson.global.security.CookieUtils;

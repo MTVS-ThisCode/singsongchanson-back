@@ -1,14 +1,20 @@
 package com.singsongchanson.domain.room.query.application.service;
 
+import com.singsongchanson.domain.room.command.application.dto.FindRoomDataResponseDTO;
 import com.singsongchanson.domain.room.command.application.dto.RoomDataResponseDTO;
 import com.singsongchanson.domain.room.command.application.dto.RoomResponseDTO;
+import com.singsongchanson.domain.room.command.domain.aggregate.entity.Room;
+import com.singsongchanson.domain.room.command.domain.aggregate.entity.RoomData;
 import com.singsongchanson.domain.room.command.domain.repository.RoomDataRepository;
 import com.singsongchanson.domain.room.command.domain.repository.RoomRepository;
+import com.singsongchanson.domain.room.query.domain.service.RoomQueryDomainService;
+import com.singsongchanson.domain.user.command.application.dto.FindUserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,31 +22,48 @@ public class RoomQueryService {
 
     private final RoomRepository roomRepository;
     private final RoomDataRepository roomDataRepository;
+    private final RoomQueryDomainService roomQueryDomainService;
 
     public List<RoomResponseDTO> findAllRooms() {
 
-        List<RoomResponseDTO> roomList = roomRepository.findAll().stream()
-                .map(RoomResponseDTO::from)
-                .collect(Collectors.toList());
+        List<Room> roomList = roomRepository.findAll();
 
-        return roomList;
+        List<RoomResponseDTO> roomResponseList = new ArrayList<>();
+
+        for (Room room : roomList) {
+            Long userNo = room.getRoomOwnerVO().getUserNo();
+            FindUserResponseDTO findUserResponse = roomQueryDomainService.getUserInfo(userNo);
+
+            RoomResponseDTO roomResponseDTO = new RoomResponseDTO(
+                    room.getRoomId(),
+                    userNo,
+                    findUserResponse.getNickName(),
+                    findUserResponse.getProfileImg()
+            );
+            roomResponseList.add(roomResponseDTO);
+        }
+        return roomResponseList;
     }
 
-    public RoomDataResponseDTO findRoomDataById(String roomId) {
+    public FindRoomDataResponseDTO findRoomDataById(String roomId) {
 
-        RoomDataResponseDTO roomDataResponse = roomDataRepository.findById(roomId)
-                .map(RoomDataResponseDTO::from)
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 데이터가 없습니다."));
+        Optional<Room> room = roomRepository.findById(roomId);
+        Optional<RoomData> roomData = roomDataRepository.findById(roomId);
 
-        return roomDataResponse;
-    }
+        if (room.isPresent() && roomData.isPresent()) {
+            Long userNo = room.get().getRoomOwnerVO().getUserNo();
+            RoomData findedRoomData = roomData.get();
+            FindUserResponseDTO findUserResponse = roomQueryDomainService.getUserInfo(userNo);
 
-    public RoomResponseDTO findRoomByRoomId(String roomId) {
+            FindRoomDataResponseDTO findRoomDataResponse = new FindRoomDataResponseDTO(
+                    findedRoomData.getId(),
+                    findedRoomData.getFurniture(),
+                    findUserResponse.getNickName(),
+                    findUserResponse.getProfileImg());
 
-        RoomResponseDTO roomResponse = roomRepository.findById(roomId)
-                .map(RoomResponseDTO::from)
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 데이터가 없습니다."));
+            return findRoomDataResponse;
+        }
 
-        return roomResponse;
+        return null;
     }
 }

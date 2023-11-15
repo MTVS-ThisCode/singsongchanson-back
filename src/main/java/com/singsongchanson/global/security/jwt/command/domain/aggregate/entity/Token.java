@@ -1,6 +1,6 @@
-package com.singsongchanson.global.security.jwt.domain.aggregate.entity;
+package com.singsongchanson.global.security.jwt.command.domain.aggregate.entity;
 
-import com.singsongchanson.global.security.jwt.domain.aggregate.vo.UserVO;
+import com.singsongchanson.global.security.jwt.command.domain.aggregate.vo.UserVO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

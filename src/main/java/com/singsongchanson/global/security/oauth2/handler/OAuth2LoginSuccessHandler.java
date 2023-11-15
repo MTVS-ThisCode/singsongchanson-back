@@ -4,7 +4,7 @@ import com.singsongchanson.global.configuration.AppProperties;
 import com.singsongchanson.global.security.CookieUtils;
 import com.singsongchanson.global.security.UserPrincipal;
 import com.singsongchanson.global.security.jwt.command.application.service.JwtProvider;
-import com.singsongchanson.global.security.oauth2.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.singsongchanson.global.security.oauth2.command.domain.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
-import static com.singsongchanson.global.security.oauth2.repository.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.singsongchanson.global.security.oauth2.command.domain.repository.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 @Component
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {

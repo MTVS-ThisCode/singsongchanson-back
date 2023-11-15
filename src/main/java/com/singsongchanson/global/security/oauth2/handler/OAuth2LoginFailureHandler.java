@@ -1,7 +1,7 @@
 package com.singsongchanson.global.security.oauth2.handler;
 
 import com.singsongchanson.global.security.CookieUtils;
-import com.singsongchanson.global.security.oauth2.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.singsongchanson.global.security.oauth2.command.domain.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

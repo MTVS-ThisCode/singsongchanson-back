@@ -1,4 +1,4 @@
-package com.singsongchanson.global.security.oauth2.service;
+package com.singsongchanson.global.security.oauth2.command.application.service;
 
 import com.singsongchanson.domain.user.command.application.dto.FindUserResponseDTO;
 import com.singsongchanson.domain.user.query.application.service.UserQueryService;

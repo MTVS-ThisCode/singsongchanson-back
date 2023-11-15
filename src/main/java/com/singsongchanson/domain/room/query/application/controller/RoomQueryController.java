@@ -1,5 +1,6 @@
 package com.singsongchanson.domain.room.query.application.controller;
 
+import com.singsongchanson.domain.room.command.application.dto.FindRoomDataResponseDTO;
 import com.singsongchanson.domain.room.command.application.dto.RoomDataResponseDTO;
 import com.singsongchanson.domain.room.command.application.dto.RoomResponseDTO;
 import com.singsongchanson.domain.room.query.application.service.RoomQueryService;
@@ -32,8 +33,8 @@ public class RoomQueryController {
     @GetMapping("/{roomId}")
     public ApiResponse findRoomData(@PathVariable String roomId) {
 
-        RoomDataResponseDTO roomDataResponse = roomQueryService.findRoomDataById(roomId);
+        FindRoomDataResponseDTO findRoomDataResponse = roomQueryService.findRoomDataById(roomId);
 
-        return ApiResponse.success("성공적으로 조회되었습니다.", roomDataResponse);
+        return ApiResponse.success("성공적으로 조회되었습니다.", findRoomDataResponse);
     }
 }

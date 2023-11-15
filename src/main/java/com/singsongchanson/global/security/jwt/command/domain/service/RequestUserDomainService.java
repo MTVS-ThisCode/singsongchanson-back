@@ -1,4 +1,4 @@
-package com.singsongchanson.global.security.jwt.domain.service;
+package com.singsongchanson.global.security.jwt.command.domain.service;
 
 import com.singsongchanson.domain.user.command.application.dto.FindUserResponseDTO;
 import org.springframework.stereotype.Service;

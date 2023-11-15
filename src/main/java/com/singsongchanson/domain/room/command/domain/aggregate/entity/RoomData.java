@@ -16,20 +16,15 @@ public class RoomData {
 
     @Id
     private String id;      // 몽고db objectId
-    private String avatar;
-    private String userNo;
     private List<Furniture> furniture;
 
     @Builder
-    public RoomData(String id, String avatar, List<Furniture> furniture, String userNo) {
+    public RoomData(String id, List<Furniture> furniture) {
         this.id = id;
-        this.avatar = avatar;
         this.furniture = furniture;
-        this.userNo = userNo;
     }
 
     public void update(UpdateRoomDataRequestDTO updateRoomData) {
-        this.avatar = updateRoomData.getAvatar();
         this.furniture = updateRoomData.getFurniture();
     }
 }
