@@ -1,7 +1,7 @@
 package com.singsongchanson.global.security.jwt.filter;
 
 import com.singsongchanson.global.security.jwt.command.application.service.CustomTokenService;
-import com.singsongchanson.global.security.oauth2.service.CustomUserDetailService;
+import com.singsongchanson.global.security.oauth2.command.application.service.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,9 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (StringUtils.hasText(jwt) && customTokenService.validateToken(jwt)) {        // 유효성 검증 하고
             Long userNo = customTokenService.getUserNoFromToken(jwt);         // 토큰을 가지고 있는 유저의 아이디를 가져옴
-            System.out.println("userNo = " + userNo);
             UserDetails userDetails = customUserDetailService.loadUserById(userNo);     // 유저 세부 정보에서 유저와 일치하는지 확인
-            System.out.println("userDetails = " + userDetails);
             // security context holder에서 따로 관리하는 토큰을 새로 발급해서 유저 인증 정보와(userprincipal), 비밀번호(credentials), 권한(getAuthorities)을 가져옴
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             // 그 토큰에 요청 정보를 저장하고
