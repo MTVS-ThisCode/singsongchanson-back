@@ -6,7 +6,7 @@ import com.singsongchanson.domain.music.command.application.dto.MusicResponseDTO
 import com.singsongchanson.domain.music.command.domain.aggregate.entity.Music;
 import com.singsongchanson.domain.music.command.domain.aggregate.entity.enumtype.SongWriter;
 import com.singsongchanson.domain.music.command.domain.aggregate.vo.GenerateUserVO;
-import com.singsongchanson.domain.music.command.domain.repository.MusicCommandRepository;
+import com.singsongchanson.domain.music.command.domain.repository.MusicRepository;
 import com.singsongchanson.domain.music.command.domain.service.MusicCommandDomainService;
 import com.singsongchanson.global.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MusicCommandService {
 
-    private final MusicCommandRepository musicCommandRepository;
+    private final MusicRepository musicRepository;
     private final MusicCommandDomainService musicCommandDomainService;
 
     public MusicResponseDTO saveAiMusic(UserPrincipal userPrincipal, AiMusicRequestDTO aiMusicRequest) {
@@ -36,7 +36,7 @@ public class MusicCommandService {
                 .build();
 
         System.out.println("music = " + music);
-        musicCommandRepository.save(music);
+        musicRepository.save(music);
 
         return MusicResponseDTO.from(music);
     }
