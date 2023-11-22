@@ -11,7 +11,5 @@ import java.util.Optional;
 @Repository
 public interface MusicRepository extends JpaRepository<Music, Long> {
 
-    Optional<Music> findByMusicNo(Long musicNo);
-
     List<Music> findByGenerateUserVO(GenerateUserVO generateUserVO);
 }
