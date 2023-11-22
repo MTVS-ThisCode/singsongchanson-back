@@ -3,7 +3,11 @@ package com.singsongchanson.domain.music.command.infrastructure.service;
 import com.singsongchanson.domain.music.command.application.dto.AiMusicRequestDTO;
 import com.singsongchanson.domain.music.command.application.dto.AiMusicResponseDTO;
 import com.singsongchanson.domain.music.command.domain.service.MusicCommandDomainService;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
@@ -30,7 +34,35 @@ public class MusicCommandInfraService implements MusicCommandDomainService {
                 .bodyToMono(AiMusicResponseDTO.class)
                 .block();
 
-//        System.out.println("aiMusicResponse = " + aiMusicResponse);
+        System.out.println("aiMusicResponse = " + aiMusicResponse);
+
+        boolean result = aiMusicResponse.getResult();
+
+        if (result) {
+            return aiMusicResponse;
+        } else {
+            throw new IllegalArgumentException("통신 실패!");
+        }
+    }
+
+    @Override
+    public AiMusicResponseDTO getAiMusic(MultipartFile imageFile) {
+
+        MultipartBodyBuilder builder = new MultipartBodyBuilder();
+        builder.part("file", imageFile.getResource());
+
+        WebClient webClient = WebClient.builder()
+                .baseUrl(baseIp + "/image_generate_music")
+                .build();
+
+        AiMusicResponseDTO aiMusicResponse = webClient.post()
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .body(BodyInserters.fromMultipartData(builder.build()))
+                .retrieve()
+                .bodyToMono(AiMusicResponseDTO.class)
+                .block();
+
+        System.out.println("aiMusicResponse = " + aiMusicResponse);
 
         boolean result = aiMusicResponse.getResult();
 
