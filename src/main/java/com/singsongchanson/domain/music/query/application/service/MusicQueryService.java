@@ -16,7 +16,7 @@ public class MusicQueryService {
     private final MusicRepository musicRepository;
     public MusicResponseDTO findMusicByMusicNo(Long musicNo) {
 
-        MusicResponseDTO musicResponse = musicRepository.findByMusicNo(musicNo)
+        MusicResponseDTO musicResponse = musicRepository.findById(musicNo)
                 .map(music -> MusicResponseDTO.from(music))
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 음악이 없습니다."));
 
