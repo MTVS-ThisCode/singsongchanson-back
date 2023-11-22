@@ -24,16 +24,22 @@ public class Music {
     private String musicUrl;
     @Column
     private String albumImgUrl;
+    @Column
+    private Long streamingCnt;      // 재생 횟수
     @Enumerated(EnumType.STRING)
     private SongWriter songWriter;     // 작곡가 정보
     @Embedded
     private GenerateUserVO generateUserVO;      // 생성 요청한 유저 정보
 
-    @Builder
-    public Music(String musicUrl, String albumImgUrl, SongWriter songWriter, GenerateUserVO generateUserVO) {
+    public Music(String musicUrl, String albumImgUrl, Long streamingCnt, SongWriter songWriter, GenerateUserVO generateUserVO) {
         this.musicUrl = musicUrl;
         this.albumImgUrl = albumImgUrl;
+        this.streamingCnt = streamingCnt;
         this.songWriter = songWriter;
         this.generateUserVO = generateUserVO;
+    }
+
+    public void updateStreamingCnt(Long streamingCnt) {
+        this.streamingCnt = streamingCnt;
     }
 }
