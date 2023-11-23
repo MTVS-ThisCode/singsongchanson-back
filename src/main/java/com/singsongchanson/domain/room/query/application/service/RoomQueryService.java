@@ -1,6 +1,5 @@
 package com.singsongchanson.domain.room.query.application.service;
 
-import com.singsongchanson.domain.comment.command.application.dto.CommentResponseDTO;
 import com.singsongchanson.domain.room.command.application.dto.FindRoomDataResponseDTO;
 import com.singsongchanson.domain.room.command.application.dto.RoomResponseDTO;
 import com.singsongchanson.domain.room.command.domain.aggregate.entity.Room;
@@ -54,14 +53,12 @@ public class RoomQueryService {
             Long userNo = optionalRoom.get().getRoomOwnerVO().getUserNo();
             RoomData roomData = optionalRoomData.get();
             FindUserResponseDTO findUserResponse = roomQueryDomainService.getUserInfo(userNo);
-            List<CommentResponseDTO> commentList = roomQueryDomainService.getRoomComment(roomId);
 
             FindRoomDataResponseDTO findRoomDataResponse = new FindRoomDataResponseDTO(
                     roomData.getId(),
                     roomData.getFurniture(),
                     findUserResponse.getNickName(),
-                    findUserResponse.getProfileImg(),
-                    commentList);
+                    findUserResponse.getProfileImg());
 
             return findRoomDataResponse;
         }

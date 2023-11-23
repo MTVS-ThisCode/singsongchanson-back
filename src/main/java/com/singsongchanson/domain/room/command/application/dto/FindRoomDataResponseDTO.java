@@ -17,5 +17,4 @@ public class FindRoomDataResponseDTO {
     private List<Furniture> furniture;
     private String userName;
     private String userProfileImg;
-    private List<CommentResponseDTO> commentList;
 }
