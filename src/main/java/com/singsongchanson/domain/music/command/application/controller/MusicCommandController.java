@@ -17,7 +17,8 @@ public class MusicCommandController {
 
     private final MusicCommandService musicCommandService;
     @PostMapping()
-    public ApiResponse createMusic(@AuthenticationPrincipal UserPrincipal userPrincipal, AiMusicRequestDTO aiMusicRequest) {
+    public ApiResponse createMusic(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                                   AiMusicRequestDTO aiMusicRequest) {
 
         MusicResponseDTO musicResponse = musicCommandService.saveAiMusic(userPrincipal, aiMusicRequest);
 
