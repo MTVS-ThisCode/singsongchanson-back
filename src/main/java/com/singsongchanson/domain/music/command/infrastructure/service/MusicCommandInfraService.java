@@ -21,15 +21,12 @@ public class MusicCommandInfraService implements MusicCommandDomainService {
     @Override
     public AiMusicResponseDTO getAiMusic(AiMusicRequestDTO aiMusicRequest) {
 
-        Map<String, String> aiMusicRequestMap = new HashMap<>();
-        aiMusicRequestMap.put("keyword", aiMusicRequest.getKeyword());
-
         WebClient webClient = WebClient.builder()
                 .baseUrl(baseIp + "/generate_music")
                 .build();
 
         AiMusicResponseDTO aiMusicResponse = webClient.post()
-                .bodyValue(aiMusicRequestMap)
+                .bodyValue(aiMusicRequest)
                 .retrieve()
                 .bodyToMono(AiMusicResponseDTO.class)
                 .block();
