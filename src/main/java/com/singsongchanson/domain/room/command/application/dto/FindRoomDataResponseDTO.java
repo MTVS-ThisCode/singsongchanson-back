@@ -1,5 +1,6 @@
 package com.singsongchanson.domain.room.command.application.dto;
 
+import com.singsongchanson.domain.comment.command.application.dto.CommentResponseDTO;
 import com.singsongchanson.domain.room.command.domain.aggregate.vo.Furniture;
 import lombok.*;
 
@@ -16,4 +17,5 @@ public class FindRoomDataResponseDTO {
     private List<Furniture> furniture;
     private String userName;
     private String userProfileImg;
+    private List<CommentResponseDTO> commentList;
 }

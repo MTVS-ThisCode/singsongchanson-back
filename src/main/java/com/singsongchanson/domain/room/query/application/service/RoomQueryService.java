@@ -1,7 +1,7 @@
 package com.singsongchanson.domain.room.query.application.service;
 
+import com.singsongchanson.domain.comment.command.application.dto.CommentResponseDTO;
 import com.singsongchanson.domain.room.command.application.dto.FindRoomDataResponseDTO;
-import com.singsongchanson.domain.room.command.application.dto.RoomDataResponseDTO;
 import com.singsongchanson.domain.room.command.application.dto.RoomResponseDTO;
 import com.singsongchanson.domain.room.command.domain.aggregate.entity.Room;
 import com.singsongchanson.domain.room.command.domain.aggregate.entity.RoomData;
@@ -47,23 +47,25 @@ public class RoomQueryService {
 
     public FindRoomDataResponseDTO findRoomDataById(String roomId) {
 
-        Optional<Room> room = roomRepository.findById(roomId);
-        Optional<RoomData> roomData = roomDataRepository.findById(roomId);
+        Optional<Room> optionalRoom = roomRepository.findById(roomId);
+        Optional<RoomData> optionalRoomData = roomDataRepository.findById(roomId);
 
-        if (room.isPresent() && roomData.isPresent()) {
-            Long userNo = room.get().getRoomOwnerVO().getUserNo();
-            RoomData findedRoomData = roomData.get();
+        if (optionalRoom.isPresent() && optionalRoomData.isPresent()) {
+            Long userNo = optionalRoom.get().getRoomOwnerVO().getUserNo();
+            RoomData roomData = optionalRoomData.get();
             FindUserResponseDTO findUserResponse = roomQueryDomainService.getUserInfo(userNo);
+            List<CommentResponseDTO> commentList = roomQueryDomainService.getRoomComment(roomId);
 
             FindRoomDataResponseDTO findRoomDataResponse = new FindRoomDataResponseDTO(
-                    findedRoomData.getId(),
-                    findedRoomData.getFurniture(),
+                    roomData.getId(),
+                    roomData.getFurniture(),
                     findUserResponse.getNickName(),
-                    findUserResponse.getProfileImg());
+                    findUserResponse.getProfileImg(),
+                    commentList);
 
             return findRoomDataResponse;
         }
 
-        return null;
+        return null;    // 낫파운드
     }
 }
