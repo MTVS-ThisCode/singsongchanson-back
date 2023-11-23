@@ -40,8 +40,8 @@ public class RoomCommandController {
     public ApiResponse deleteRoom(@PathVariable String roomId,
                                   @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-        roomCommandService.deleteRoom(roomId, userPrincipal.getId());
+        boolean result = roomCommandService.deleteRoom(roomId, userPrincipal.getId());
 
-        return ApiResponse.success("성공적으로 삭제되었습니다.", null);
+        return ApiResponse.success("성공적으로 삭제되었습니다.", result);
     }
 }

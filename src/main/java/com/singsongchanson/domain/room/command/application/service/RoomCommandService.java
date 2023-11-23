@@ -22,10 +22,10 @@ public class RoomCommandService {
 
     public RoomDataResponseDTO createRoom(Long userNo) {
 
-        Optional<Room> findRoom = roomRepository.findByRoomOwnerVO(new RoomOwnerVO(userNo));
+        Optional<Room> optionalRoom = roomRepository.findByRoomOwnerVO(new RoomOwnerVO(userNo));
 
-        if(findRoom.isPresent()) {
-            String roomId = findRoom.get().getRoomId();
+        if(optionalRoom.isPresent()) {
+            String roomId = optionalRoom.get().getRoomId();
             RoomData roomData = roomDataRepository.findById(roomId).get();
             return RoomDataResponseDTO.from(roomData);
         }
@@ -67,35 +67,38 @@ public class RoomCommandService {
     public RoomDataResponseDTO updateRoomData(String roomId, UpdateRoomDataRequestDTO updateRoomDataRequest,
                                               Long requestUserNo) {
 
-        Optional<Room> room = roomRepository.findById(roomId);
-        Optional<RoomData> roomData = roomDataRepository.findById(roomId);
+        Optional<Room> optionalRoom = roomRepository.findById(roomId);
+        Optional<RoomData> optionalRoomData = roomDataRepository.findById(roomId);
 
-        if (room.isPresent() && roomData.isPresent()) {
-            Room findedRoom = room.get();
-            RoomData findedRoomData = roomData.get();
+        if (optionalRoom.isPresent() && optionalRoomData.isPresent()) {
+            Room room = optionalRoom.get();
+            RoomData roomData = optionalRoomData.get();
 
-            if (findedRoom.getRoomOwnerVO().getUserNo() == requestUserNo) {
+            if (room.getRoomOwnerVO().getUserNo() == requestUserNo) {
 
-                findedRoomData.update(updateRoomDataRequest);
-                roomDataRepository.save(findedRoomData);
+                roomData.update(updateRoomDataRequest);
+                roomDataRepository.save(roomData);
 
-                return RoomDataResponseDTO.from(findedRoomData);
+                return RoomDataResponseDTO.from(roomData);
             }
         }
 
         return null;    /** 업데이트 실패 코드 보내도록 리팩토링 */
     }
 
-    public void deleteRoom(String roomId, Long requestUserNo) {
+    public boolean deleteRoom(String roomId, Long requestUserNo) {
 
-        Optional<Room> room = roomRepository.findById(roomId);
+        Optional<Room> optionalRoom = roomRepository.findById(roomId);
 
-        if (room.isPresent()) {
-            Room findedRoom = room.get();
-            if (findedRoom.getRoomOwnerVO().getUserNo() == requestUserNo) {
+        if (optionalRoom.isPresent()) {
+            Room room = optionalRoom.get();
+            if (room.getRoomOwnerVO().getUserNo() == requestUserNo) {
                 roomDataRepository.deleteById(roomId);
                 roomRepository.deleteById(roomId);
+
+                return true;
             }
         }
+        return false;
     }
 }
