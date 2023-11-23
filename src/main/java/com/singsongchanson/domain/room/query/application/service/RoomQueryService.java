@@ -57,6 +57,7 @@ public class RoomQueryService {
             FindRoomDataResponseDTO findRoomDataResponse = new FindRoomDataResponseDTO(
                     roomData.getId(),
                     roomData.getFurniture(),
+                    findUserResponse.getUserNo(),
                     findUserResponse.getNickName(),
                     findUserResponse.getProfileImg());
 
