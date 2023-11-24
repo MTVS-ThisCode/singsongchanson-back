@@ -75,7 +75,7 @@ public class SecurityConfig {
 //                                )...
                                 .requestMatchers()
                                 .antMatchers(
-                                        "/login/**"
+                                        "/login/**", "/api/v1/musics/ranking", "/api/v1/musics/count"
                                 )
                                 .requestMatchers(new RegexRequestMatcher("/api/v1/musics","GET"))
                 )
@@ -124,7 +124,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://192.168.0.163:3000", "https://ac63-121-140-234-46.ngrok-free.app", "http://3.35.77.17"));
         configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "Access-Control-Allow-Origin"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
