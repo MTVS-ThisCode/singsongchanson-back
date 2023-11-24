@@ -16,6 +16,7 @@ public class MusicResponseDTO {
     private String genre;
     private String musicUrl;
     private String albumImgUrl;
+    private Long streamingCnt;
     private SongWriter songWriter;
     private Long userNo;
 
@@ -27,6 +28,7 @@ public class MusicResponseDTO {
                 music.getGenre(),
                 music.getMusicUrl(),
                 music.getAlbumImgUrl(),
+                music.getStreamingCnt(),
                 music.getSongWriter(),
                 music.getGenerateUserVO().getUserNo()
         );

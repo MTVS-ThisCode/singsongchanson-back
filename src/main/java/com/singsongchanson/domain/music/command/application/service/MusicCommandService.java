@@ -1,6 +1,6 @@
 package com.singsongchanson.domain.music.command.application.service;
 
-import com.fasterxml.jackson.annotation.OptBoolean;
+import com.singsongchanson.domain.music.command.application.dto.AiMusicImageRequestDTO;
 import com.singsongchanson.domain.music.command.application.dto.AiMusicRequestDTO;
 import com.singsongchanson.domain.music.command.application.dto.AiMusicResponseDTO;
 import com.singsongchanson.domain.music.command.application.dto.MusicResponseDTO;
@@ -12,7 +12,6 @@ import com.singsongchanson.domain.music.command.domain.service.MusicCommandDomai
 import com.singsongchanson.global.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -28,6 +27,8 @@ public class MusicCommandService {
         AiMusicResponseDTO aiMusicResponse = musicCommandDomainService.getAiMusic(aiMusicRequest);
 
         Music music = new Music(
+                aiMusicRequest.getTitle(),
+                aiMusicRequest.getGenre(),
                 aiMusicResponse.getMusic_path(),
                 aiMusicResponse.getImage_path(),
                 0L,
@@ -40,11 +41,12 @@ public class MusicCommandService {
         return MusicResponseDTO.from(music);
     }
 
-    public MusicResponseDTO saveAiMusicByImage(UserPrincipal userPrincipal, MultipartFile imageFile) {
+    public MusicResponseDTO saveAiMusicByImage(UserPrincipal userPrincipal, AiMusicImageRequestDTO aiMusicImageRequest) {
 
-        AiMusicResponseDTO aiMusicResponse = musicCommandDomainService.getAiMusic(imageFile);
+        AiMusicResponseDTO aiMusicResponse = musicCommandDomainService.getAiMusic(aiMusicImageRequest);
 
         Music music = new Music(
+                aiMusicImageRequest.getTitle(),
                 aiMusicResponse.getMusic_path(),
                 aiMusicResponse.getImage_path(),
                 0L,

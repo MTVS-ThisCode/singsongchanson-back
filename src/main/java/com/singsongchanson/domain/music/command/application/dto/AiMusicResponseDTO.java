@@ -10,8 +10,6 @@ public class AiMusicResponseDTO {
     private String music_path;
     private String image_path;
     private boolean result;
-    //    private String title;
-    //    private String genre;
 
     protected AiMusicResponseDTO() {}
 
