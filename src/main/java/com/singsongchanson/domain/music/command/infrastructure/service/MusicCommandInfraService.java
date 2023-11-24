@@ -1,17 +1,14 @@
 package com.singsongchanson.domain.music.command.infrastructure.service;
 
+import com.singsongchanson.domain.music.command.application.dto.AiMusicImageRequestDTO;
 import com.singsongchanson.domain.music.command.application.dto.AiMusicRequestDTO;
 import com.singsongchanson.domain.music.command.application.dto.AiMusicResponseDTO;
 import com.singsongchanson.domain.music.command.domain.service.MusicCommandDomainService;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class MusicCommandInfraService implements MusicCommandDomainService {
@@ -43,10 +40,10 @@ public class MusicCommandInfraService implements MusicCommandDomainService {
     }
 
     @Override
-    public AiMusicResponseDTO getAiMusic(MultipartFile imageFile) {
+    public AiMusicResponseDTO getAiMusic(AiMusicImageRequestDTO aiMusicImageRequest) {
 
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
-        builder.part("file", imageFile.getResource());
+        builder.part("file", aiMusicImageRequest.getImageFile().getResource());
 
         WebClient webClient = WebClient.builder()
                 .baseUrl(baseIp + "/image_generate_music")

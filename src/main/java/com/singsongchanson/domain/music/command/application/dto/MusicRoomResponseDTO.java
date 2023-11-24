@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class MusicResponseDTO {
+public class MusicRoomResponseDTO {
 
     private Long musicNo;
     private String title;
@@ -19,18 +19,5 @@ public class MusicResponseDTO {
     private Long streamingCnt;
     private SongWriter songWriter;
     private Long userNo;
-
-    public static MusicResponseDTO from(Music music) {
-
-        return new MusicResponseDTO(
-                music.getMusicNo(),
-                music.getTitle(),
-                music.getGenre(),
-                music.getMusicUrl(),
-                music.getAlbumImgUrl(),
-                music.getStreamingCnt(),
-                music.getSongWriter(),
-                music.getGenerateUserVO().getUserNo()
-        );
-    }
+    private String roomId;
 }

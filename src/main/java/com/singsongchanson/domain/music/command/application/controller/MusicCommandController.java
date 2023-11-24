@@ -1,5 +1,6 @@
 package com.singsongchanson.domain.music.command.application.controller;
 
+import com.singsongchanson.domain.music.command.application.dto.AiMusicImageRequestDTO;
 import com.singsongchanson.domain.music.command.application.dto.AiMusicRequestDTO;
 import com.singsongchanson.domain.music.command.application.dto.MusicResponseDTO;
 import com.singsongchanson.domain.music.command.application.service.MusicCommandService;
@@ -8,7 +9,6 @@ import com.singsongchanson.global.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,9 +27,9 @@ public class MusicCommandController {
 
     @PostMapping("/image")
     public ApiResponse createMusicByImage(@AuthenticationPrincipal UserPrincipal userPrincipal,
-                                          @RequestBody MultipartFile imageFile) {
+                                          @RequestBody AiMusicImageRequestDTO aiMusicImageRequest) {
 
-        MusicResponseDTO musicResponse = musicCommandService.saveAiMusicByImage(userPrincipal, imageFile);
+        MusicResponseDTO musicResponse = musicCommandService.saveAiMusicByImage(userPrincipal, aiMusicImageRequest);
 
         return ApiResponse.success("성공적으로 저장되었습니다.", musicResponse);
     }

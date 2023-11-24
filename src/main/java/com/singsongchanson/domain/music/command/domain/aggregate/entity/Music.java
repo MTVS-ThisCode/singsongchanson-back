@@ -31,7 +31,18 @@ public class Music {
     @Embedded
     private GenerateUserVO generateUserVO;      // 생성 요청한 유저 정보
 
-    public Music(String musicUrl, String albumImgUrl, Long streamingCnt, SongWriter songWriter, GenerateUserVO generateUserVO) {
+    public Music(String title, String genre, String musicUrl, String albumImgUrl, Long streamingCnt, SongWriter songWriter, GenerateUserVO generateUserVO) {
+        this.title = title;
+        this.genre = genre;
+        this.musicUrl = musicUrl;
+        this.albumImgUrl = albumImgUrl;
+        this.streamingCnt = streamingCnt;
+        this.songWriter = songWriter;
+        this.generateUserVO = generateUserVO;
+    }
+
+    public Music(String title, String musicUrl, String albumImgUrl, Long streamingCnt, SongWriter songWriter, GenerateUserVO generateUserVO) {
+        this.title = title;
         this.musicUrl = musicUrl;
         this.albumImgUrl = albumImgUrl;
         this.streamingCnt = streamingCnt;
