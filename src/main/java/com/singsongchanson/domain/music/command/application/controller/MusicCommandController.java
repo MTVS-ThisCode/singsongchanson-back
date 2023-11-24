@@ -27,7 +27,7 @@ public class MusicCommandController {
 
     @PostMapping("/image")
     public ApiResponse createMusicByImage(@AuthenticationPrincipal UserPrincipal userPrincipal,
-                                          @RequestBody AiMusicImageRequestDTO aiMusicImageRequest) {
+                                          AiMusicImageRequestDTO aiMusicImageRequest) {
 
         MusicResponseDTO musicResponse = musicCommandService.saveAiMusicByImage(userPrincipal, aiMusicImageRequest);
 
