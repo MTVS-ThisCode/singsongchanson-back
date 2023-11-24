@@ -1,9 +1,11 @@
 package com.singsongchanson.domain.room.query.application.service;
 
 import com.singsongchanson.domain.room.command.application.dto.FindRoomDataResponseDTO;
+import com.singsongchanson.domain.room.command.application.dto.RoomOwnerResponseDTO;
 import com.singsongchanson.domain.room.command.application.dto.RoomResponseDTO;
 import com.singsongchanson.domain.room.command.domain.aggregate.entity.Room;
 import com.singsongchanson.domain.room.command.domain.aggregate.entity.RoomData;
+import com.singsongchanson.domain.room.command.domain.aggregate.vo.RoomOwnerVO;
 import com.singsongchanson.domain.room.command.domain.repository.RoomDataRepository;
 import com.singsongchanson.domain.room.command.domain.repository.RoomRepository;
 import com.singsongchanson.domain.room.query.domain.service.RoomQueryDomainService;
@@ -23,23 +25,23 @@ public class RoomQueryService {
     private final RoomDataRepository roomDataRepository;
     private final RoomQueryDomainService roomQueryDomainService;
 
-    public List<RoomResponseDTO> findAllRooms() {
+    public List<RoomOwnerResponseDTO> findAllRooms() {
 
         List<Room> roomList = roomRepository.findAll();
 
-        List<RoomResponseDTO> roomResponseList = new ArrayList<>();
+        List<RoomOwnerResponseDTO> roomResponseList = new ArrayList<>();
 
         for (Room room : roomList) {
             Long userNo = room.getRoomOwnerVO().getUserNo();
             FindUserResponseDTO findUserResponse = roomQueryDomainService.getUserInfo(userNo);
 
-            RoomResponseDTO roomResponseDTO = new RoomResponseDTO(
+            RoomOwnerResponseDTO roomOwnerResponseDTO = new RoomOwnerResponseDTO(
                     room.getRoomId(),
                     userNo,
                     findUserResponse.getNickName(),
                     findUserResponse.getProfileImg()
             );
-            roomResponseList.add(roomResponseDTO);
+            roomResponseList.add(roomOwnerResponseDTO);
         }
         return roomResponseList;
     }
@@ -65,5 +67,16 @@ public class RoomQueryService {
         }
 
         return null;    // 낫파운드
+    }
+
+    public RoomResponseDTO findRoomByRoomOwnerVO(Long userNo) {
+
+         RoomResponseDTO roomResponse = roomRepository.findByRoomOwnerVO(new RoomOwnerVO(userNo))
+                 .map(RoomResponseDTO::from)
+                 .orElseThrow(() -> new IllegalArgumentException("해당하는 음악이 없습니다."));
+
+         return roomResponse;
+
+
     }
 }
