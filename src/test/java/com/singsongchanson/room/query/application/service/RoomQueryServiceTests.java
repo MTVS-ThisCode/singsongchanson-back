@@ -2,7 +2,7 @@ package com.singsongchanson.room.query.application.service;
 
 import com.singsongchanson.domain.room.command.application.dto.CreateRoomRequestDTO;
 import com.singsongchanson.domain.room.command.application.dto.FindRoomDataResponseDTO;
-import com.singsongchanson.domain.room.command.application.dto.RoomResponseDTO;
+import com.singsongchanson.domain.room.command.application.dto.RoomOwnerResponseDTO;
 import com.singsongchanson.domain.room.command.application.service.RoomCommandService;
 import com.singsongchanson.domain.room.command.domain.aggregate.vo.Axis;
 import com.singsongchanson.domain.room.command.domain.aggregate.vo.Furniture;
@@ -49,7 +49,7 @@ public class RoomQueryServiceTests {
         roomCommandService.saveRoom(createRoomRequestDTO, user.getUserNo());
 
         // when
-        List<RoomResponseDTO> roomList = roomQueryService.findAllRooms();
+        List<RoomOwnerResponseDTO> roomList = roomQueryService.findAllRooms();
 
         // then
         Assertions.assertNotNull(roomList);

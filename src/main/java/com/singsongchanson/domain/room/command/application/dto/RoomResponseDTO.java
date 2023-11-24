@@ -12,6 +12,12 @@ public class RoomResponseDTO {
 
     private String roomId;
     private Long userNo;
-    private String userName;
-    private String userProfileImg;
+
+    public static RoomResponseDTO from(Room room) {
+
+        return new RoomResponseDTO(
+                room.getRoomId(),
+                room.getRoomOwnerVO().getUserNo()
+        );
+    }
 }

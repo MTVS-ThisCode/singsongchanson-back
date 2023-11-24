@@ -1,8 +1,7 @@
 package com.singsongchanson.domain.room.query.application.controller;
 
 import com.singsongchanson.domain.room.command.application.dto.FindRoomDataResponseDTO;
-import com.singsongchanson.domain.room.command.application.dto.RoomDataResponseDTO;
-import com.singsongchanson.domain.room.command.application.dto.RoomResponseDTO;
+import com.singsongchanson.domain.room.command.application.dto.RoomOwnerResponseDTO;
 import com.singsongchanson.domain.room.query.application.service.RoomQueryService;
 import com.singsongchanson.global.common.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class RoomQueryController {
     @GetMapping
     public ApiResponse findAllRooms() {
 
-        List<RoomResponseDTO> roomResponse = roomQueryService.findAllRooms();
+        List<RoomOwnerResponseDTO> roomResponse = roomQueryService.findAllRooms();
 
         return ApiResponse.success("성공적으로 조회되었습니다.", roomResponse);
     }
