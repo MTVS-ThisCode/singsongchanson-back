@@ -10,7 +10,7 @@ import java.util.List;
 
 @Document(collection = "room")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @ToString
 public class RoomData {
 
@@ -22,6 +22,10 @@ public class RoomData {
     public RoomData(String id, List<Furniture> furniture) {
         this.id = id;
         this.furniture = furniture;
+    }
+
+    public RoomData(String id) {
+        this.id = id;
     }
 
     public void update(UpdateRoomDataRequestDTO updateRoomData) {

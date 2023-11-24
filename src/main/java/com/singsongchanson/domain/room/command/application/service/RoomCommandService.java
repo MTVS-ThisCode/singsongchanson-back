@@ -26,14 +26,18 @@ public class RoomCommandService {
 
         if(optionalRoom.isPresent()) {
             String roomId = optionalRoom.get().getRoomId();
-            RoomData roomData = roomDataRepository.findById(roomId).get();
+            Optional<RoomData> optionalRoomData = roomDataRepository.findById(roomId);
+
+            if (optionalRoomData.isPresent()) {
+                RoomData roomData = optionalRoomData.get();
+                return RoomDataResponseDTO.from(roomData);
+            }
+
+            RoomData roomData = roomDataRepository.save(new RoomData(roomId));
             return RoomDataResponseDTO.from(roomData);
         }
 
-        RoomData roomData = RoomData.builder()
-                .build();
-
-        RoomData savedRoomData = roomDataRepository.save(roomData);
+        RoomData savedRoomData = roomDataRepository.save(new RoomData());
 
         Room room = Room.builder()
                 .roomId(savedRoomData.getId())

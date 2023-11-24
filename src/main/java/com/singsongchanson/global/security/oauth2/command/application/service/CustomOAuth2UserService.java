@@ -61,13 +61,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService  {
                     attributes.getGender(), attributes.getAgeRange(), attributes.getSocialId(), socialType);
             User newUser = userCommandService.createUser(createUserDTO);
             oauthMember = UserPrincipal.create(newUser, attributes.getAttributes());
-            requestRoomDomainService.createRoomService(oauthMember.getId());
         }
         else {
             UpdateUserRequestDTO updateUserDTO = new UpdateUserRequestDTO(attributes.getProfileImg(), attributes.getNickname());
             User updateUser = userCommandService.updateUser(user.getUserNo(), updateUserDTO);
             oauthMember = UserPrincipal.create(updateUser, attributes.getAttributes());
         }
+        requestRoomDomainService.createRoomService(oauthMember.getId());
         return oauthMember;
     }
 
