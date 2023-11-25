@@ -11,6 +11,7 @@ import com.singsongchanson.domain.room.command.domain.repository.RoomDataReposit
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -32,12 +33,12 @@ public class RoomCommandService {
                 RoomData roomData = optionalRoomData.get();
                 return RoomDataResponseDTO.from(roomData);
             }
+            RoomData roomData = roomDataRepository.save(new RoomData(roomId, new ArrayList<>()));
 
-            RoomData roomData = roomDataRepository.save(new RoomData(roomId));
             return RoomDataResponseDTO.from(roomData);
         }
 
-        RoomData savedRoomData = roomDataRepository.save(new RoomData());
+        RoomData savedRoomData = roomDataRepository.save(new RoomData(new ArrayList<>()));
 
         Room room = Room.builder()
                 .roomId(savedRoomData.getId())

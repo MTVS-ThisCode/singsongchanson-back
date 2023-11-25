@@ -24,8 +24,8 @@ public class RoomData {
         this.furniture = furniture;
     }
 
-    public RoomData(String id) {
-        this.id = id;
+    public RoomData(List<Furniture> furniture) {
+        this.furniture = furniture;
     }
 
     public void update(UpdateRoomDataRequestDTO updateRoomData) {
