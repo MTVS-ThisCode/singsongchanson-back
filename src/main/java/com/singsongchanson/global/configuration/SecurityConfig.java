@@ -66,13 +66,13 @@ public class SecurityConfig {
                                         "/**/*.gif", "/**/*.svg", "/**/*.jpg",
                                         "/**/*.html", "/**/*.css", "/**/*.js"
                                 )
-//                                .antMatchers(
-//                                        "/api-docs",
-//                                        "/v2/api-docs",  "/v3/api-docs","/configuration/ui",
-//                                        "/swagger-resources/**", "/configuration/security",
-//                                        "/swagger-ui.html", "/webjars/**","/swagger/**",
-//                                        "/swagger-ui/**", "/swagger","/webjars/**"
-//                                )...
+                                .antMatchers(
+                                        "/api-docs/**",
+                                        "/v2/api-docs",  "/v3/api-docs","/configuration/ui",
+                                        "/swagger-resources/**", "/configuration/security",
+                                        "/swagger-ui.html", "/webjars/**","/swagger/**",
+                                        "/swagger-ui/**", "/swagger","/webjars/**"
+                                )
                                 .requestMatchers()
                                 .antMatchers(
                                         "/login/**", "/api/v1/musics/ranking", "/api/v1/musics/count"
